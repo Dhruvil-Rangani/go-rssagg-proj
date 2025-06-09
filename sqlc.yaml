@@ -1,0 +1,9 @@
+version: "2"
+sql:
+  - name: "rssagg"
+    schema: "sql/schema"
+    queries: "sql/queries"
+    engine: "postgresql"
+    gen:
+      go:
+        out: "internal/database"
