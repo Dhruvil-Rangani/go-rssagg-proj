@@ -75,7 +75,7 @@ A backend web service written in Go that aggregates RSS feeds for users. Users c
 
 Use the `Authorization` header with the format:
 ```
-Authorization: `ApiKey <api_key>`
+Authorization: ApiKey <api_key>
 ```
 
 ### Endpoints
