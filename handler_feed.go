@@ -24,17 +24,28 @@ func (apiCfg *apiConfig) handlerCreateFeed(w http.ResponseWriter, r *http.Reques
 	}
 
 	feed, err := apiCfg.DB.CreateFeed(r.Context(), database.CreateFeedParams{
-		ID: uuid.New(),
-		Name: p.Name,
+		ID:        uuid.New(),
+		Name:      p.Name,
 		CreatedAt: time.Now().UTC(),
 		UpdatedAt: time.Now().UTC(),
-		Url: p.URL,
-		UserID: user.ID,
+		Url:       p.URL,
+		UserID:    user.ID,
 	})
 	if err != nil {
 		responseWithError(w, http.StatusBadRequest, fmt.Sprintf("Failed to create user: %v", err))
 		return
 	}
-	
-	jsonResponse(w, http.StatusCreated, databaseUserToUser(feed))
+
+	jsonResponse(w, http.StatusCreated, databaseFeedtoFeed(feed))
+}
+
+func (apiCfg *apiConfig) handlerGetAllFeeds(w http.ResponseWriter, r *http.Request) {
+
+	feeds, err := apiCfg.DB.GetAllFeeds(r.Context())
+	if err != nil {
+		responseWithError(w, http.StatusBadRequest, fmt.Sprintf("Couldn't Get Feeds: %v", err))
+		return
+	}
+
+	jsonResponse(w, http.StatusCreated, databaseFeedsToFeeds(feeds))
 }
